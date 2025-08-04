@@ -32,10 +32,22 @@ router.post("/register", async (req, res) => {
         if (existingEmail) {
             return res.status(400).json({ message: "Email already exists" });
         }
-        const existingUsername = await User.findone({ username });
+        
+        // Check if username already exists
+        const existingUsername = await User.findOne({ username });
         if (existingUsername) {
             return res.status(400).json({ message: "Username already exists" });
-        }   
+        }  
+        
+        const profileImage = "https://api.dicebear.com/6.x/initials/svg?seed=" + username;
+
+        // Create new user
+        const newUser = new User({
+            email,
+            username,
+            password,
+            profileImage,
+        });
 
     } catch (error) {}
 });
