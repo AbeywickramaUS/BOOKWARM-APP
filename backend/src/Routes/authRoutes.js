@@ -61,7 +61,20 @@ router.post("/register", async (req, res) => {
 
         const token = newUser.generateAuthToken();
 
-    } catch (error) {}
+        res.status(201).json({
+            token,
+            user: {
+                id: newUser._id,
+                email: newUser.email,
+                username: newUser.username,
+                profileImage: newUser.profileImage,
+            }
+        });
+
+    } catch (error) {
+        console.log("Error during registration:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
 });
 
 
