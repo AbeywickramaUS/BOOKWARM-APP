@@ -4,7 +4,7 @@ import Book from "../models/book.js"; // Assuming you have a Book model defined
 
 const router = express.Router();
 
-router.post("/", async (req, res) => {
+router.post("/", protectRoute, async (req, res) => {
     try {
         const { title, caption, image, rating, user } = req.body;
         if (!title || !caption || !image || !rating || !user) {
@@ -22,6 +22,7 @@ router.post("/", async (req, res) => {
             caption,
             image: imageUrl,
             rating,
+
         });
 
         await newBook.save();
