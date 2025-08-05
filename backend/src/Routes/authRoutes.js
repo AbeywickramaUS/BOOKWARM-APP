@@ -36,7 +36,7 @@ router.post("/register", async (req, res) => {
         //const existingUser = await User.findOne({ $or: [{ email}, {username } ]});
         //if (existingUser) {return res.status(400).json({ message: "User already exists" });};
 
-        const existingEmail = await User.findone({ email });
+        const existingEmail = await User.findOne({ email });
         if (existingEmail) {
             return res.status(400).json({ message: "Email already exists" });
         }
@@ -57,9 +57,9 @@ router.post("/register", async (req, res) => {
             profileImage,
         });
 
-        await User.save();
+        await newUser.save();
 
-        const token = newUser.generateAuthToken();
+        const token = generateAuthToken(newUser._id);
 
         res.status(201).json({
             token,
@@ -73,7 +73,7 @@ router.post("/register", async (req, res) => {
 
     } catch (error) {
         console.log("Error during registration:", error);
-        res.status(500).json({ message: "Internal server error" });
+        res.status(500).json({ message: "Internal server error" })
     }
 });
 
