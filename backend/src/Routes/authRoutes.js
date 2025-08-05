@@ -11,8 +11,30 @@ const generateAuthToken = (userId) => {
 }
 
 router.post("/login", async (req, res) => {
-    res.send("Login");
+    try {
+        const { email, password } = req.body;
+        if (!email || !password) {
+            return res.status(400).json({ message: "Please fill in all fields" });
+        }
+        // Check if user exists
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(400).json({ message: "Invalid email or password" });
+        }
 
+        // Check if password is correct
+        const isMatch = await user.comparePassword(password);
+        if (!isMatch) {
+            return res.status(400).json({ message: "Invalid email or password" });
+        }
+        // Generate token
+        const token = generateAuthToken(user._id);
+        res.status(200).json({ token, user: { id: user._id, email: user.email, username: user.username, profileImage: user.profileImage } });
+
+    } catch (error) {
+        console.log("Error during login:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
 });
 
 router.post("/register", async (req, res) => {
