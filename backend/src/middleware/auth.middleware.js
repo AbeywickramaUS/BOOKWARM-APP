@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { User } from '../models/user.model.js';
+import User from '../models/User.js';
 
 // Removed invalid fetch statement; if needed, use the following correct syntax:
 //const response = await fetch('https://localhost:3000/api/book', {
@@ -14,7 +14,7 @@ import { User } from '../models/user.model.js';
 const protectRoute = async (req, res, next) => {
     try {
         //get token from the authorization header
-        const token = req.headers ( "authorization" ).replace( "Bearer ", "" );
+        const token = req.headers.authorization?.replace("Bearer ", "");
         if (!token) {
             return res.status(401).json({ message: 'No token provided, authorization denied' });
         }
