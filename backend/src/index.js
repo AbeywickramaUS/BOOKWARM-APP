@@ -1,6 +1,7 @@
 //const express = require('express');
 
 import express from 'express';
+import cors from 'cors';
 import "dotenv/config";
 
 import authrouter from "./Routes/authRoutes.js";
@@ -11,6 +12,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
+app.use(cors());
 
 app.use("/api/auth",authrouter);
 app.use("/api/books", bookrouter);
