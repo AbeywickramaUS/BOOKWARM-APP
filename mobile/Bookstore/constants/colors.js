@@ -13,10 +13,11 @@ const COLORS = {
   white: "#ffffff",
   black: "#000000",
 };
+*/
 
 // RETRO
 
-const COLORS = {
+const Colors = {
   primary: "#e17055",
   textPrimary: "#784e2d",
   textSecondary: "#a58e7c",
@@ -48,7 +49,7 @@ const COLORS = {
 };
 */
 
-import { Colors } from "react-native/Libraries/NewAppScreen";
+//import { Colors } from "react-native/Libraries/NewAppScreen";
 
 // BLOSSOM
 /*
