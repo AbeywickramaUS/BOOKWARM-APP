@@ -8,11 +8,13 @@ import {
   useColorScheme,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import { Link } from 'expo-router';
 
 export default function Index() {
   const colorScheme = useColorScheme();
   const isDark = colorScheme === 'dark';
 
+  
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -146,6 +148,32 @@ export default function Index() {
       color: isDark ? '#a0a0a0' : '#666666',
       textAlign: 'center',
     },
+    signupLink: {
+      alignSelf: 'flex-end',
+      marginBottom: 16,
+      paddingHorizontal: 12,
+      paddingVertical: 6,
+      borderRadius: 8,
+      backgroundColor: isDark ? '#222' : '#e6f0ff',
+    },
+    signupLinkText: {
+      color: '#007AFF',
+      fontWeight: '600',
+      fontSize: 16,
+    },
+    loginLink: {
+      alignSelf: 'flex-end',
+      marginBottom: 8,
+      paddingHorizontal: 12,
+      paddingVertical: 6,
+      borderRadius: 8,
+      backgroundColor: isDark ? '#222' : '#f0e6ff',
+    },
+    loginLinkText: {
+      color: '#8e44ad',
+      fontWeight: '600',
+      fontSize: 16,
+    },
   });
 
   return (
@@ -160,6 +188,13 @@ export default function Index() {
       </View>
 
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
+        <Link href="/library" style={styles.signupLink}>
+          <Text style={styles.signupLinkText}>Sign Up</Text>
+        </Link>
+        <Link href="/library" style={styles.loginLink}>
+          <Text style={styles.loginLinkText}>Log In</Text>
+        </Link>
+
         <View style={styles.welcomeCard}>
           <Text style={styles.cardTitle}>Welcome to BookWarm!</Text>
           <Text style={styles.cardDescription}>
