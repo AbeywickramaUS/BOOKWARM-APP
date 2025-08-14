@@ -1,11 +1,15 @@
 import { Stack } from "expo-router";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 export default function RootLayout() {
   return (
-      <Stack screenOptions={ {headerShown: true} }> 
-        <Stack.Screen name="index" options={{ title: "Welcome to BookWarm Mobile!" }} />
-        <Stack.Screen name="books" options={{ title: "Books" }} />
-        <Stack.Screen name="library" options={{ title: "My Library" }} />
-      </Stack>
+    <SafeAreaProvider>
+      <SafeAreaView style={{ flex: 1 }}>
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="index" />
+          <Stack.Screen name="(auth)" />
+        </Stack>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
