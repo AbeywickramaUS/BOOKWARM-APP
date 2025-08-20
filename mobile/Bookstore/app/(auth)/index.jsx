@@ -1,9 +1,56 @@
-import { View, Text } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import { useState } from 'react';
 
-export default function index() {
+export default function Index() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleLogin = () => {
+    // TODO: Implement login logic here
+  };
+
   return (
-    <View>
-      <Text>Login Screen </Text>
+    <View style={styles.container}>
+      <View style={styles.topIllustration}>
+        <Text>Login Screen</Text>
+        <Text>Email: {email}</Text>
+        <TextInput
+          value={email}
+          onChangeText={setEmail}
+          placeholder="Enter your email"
+          style={{ borderWidth: 1, padding: 8, marginTop: 10 }}
+        />
+        <Text>Password:</Text>
+        <TextInput
+          value={password}
+          onChangeText={setPassword}
+          placeholder="Enter your password"
+          secureTextEntry={!showPassword}
+          style={{ borderWidth: 1, padding: 8, marginTop: 10 }}
+        />
+        <TouchableOpacity onPress={() => setShowPassword(prev => !prev)}>
+          <Text style={{ color: 'blue', marginTop: 5 }}>
+            {showPassword ? 'Hide Password' : 'Show Password'}
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={{ backgroundColor: 'blue', padding: 10, marginTop: 15, borderRadius: 5 }} onPress={handleLogin}>
+          <Text style={{ color: 'white', textAlign: 'center' }}>
+            Login
+          </Text>
+        </TouchableOpacity>
+      </View>
     </View>
-  )
+  );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    justifyContent: 'center',
+  },
+  topIllustration: {
+    alignItems: 'center',
+  },
+});
