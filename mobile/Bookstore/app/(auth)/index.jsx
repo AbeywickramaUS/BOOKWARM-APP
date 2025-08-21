@@ -1,4 +1,4 @@
-import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { useState } from 'react';
 
 export default function Index() {
@@ -12,12 +12,23 @@ export default function Index() {
 
   return (
     <View style={styles.container}>
+      {/* Illustration */}
       <View style={styles.topIllustration}>
+        <Image
+          source={require('D:\practice project\BOOKWARM-APP\mobile\Bookstore\assets\images\Dictionary-bro.png')}
+          style={styles.illustrationImage}
+          resizeMode='contain'
+        />
+      </View>
+      <View style={styles.card}>
+        <View style={styles.formContainer}>
         <Text>Login Screen</Text>
         <Text>Email: {email}</Text>
         <TextInput
           value={email}
           onChangeText={setEmail}
+          keyboardType='email-address'
+          autoCapitalize='none'
           placeholder="Enter your email"
           style={{ borderWidth: 1, padding: 8, marginTop: 10 }}
         />
@@ -39,6 +50,7 @@ export default function Index() {
             Login
           </Text>
         </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
