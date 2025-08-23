@@ -1,4 +1,4 @@
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image, KeyboardAvoidingView, Platform } from 'react-native';
 import { useState } from 'react';
 
 export default function Index() {
@@ -11,11 +11,14 @@ export default function Index() {
   };
 
   return (
-    <View style={styles.container}>
-      {/* Illustration */}
-      <View style={styles.topIllustration}>
-        <Image
-          source={require('D:\practice project\BOOKWARM-APP\mobile\Bookstore\assets\images\Dictionary-bro.png')}
+    <KeyboardAvoidingView 
+    style={{ flex: 1 }} 
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      <View style={styles.container}>
+        {/* Illustration */}
+        <View style={styles.topIllustration}>
+          <Image
+            source={require('D:\practice project\BOOKWARM-APP\mobile\Bookstore\assets\images\Dictionary-bro.png')}
           style={styles.illustrationImage}
           resizeMode='contain'
         />
@@ -59,6 +62,7 @@ export default function Index() {
         </View>
       </View>
     </View>
+    </KeyboardAvoidingView>
   );
 }
 
