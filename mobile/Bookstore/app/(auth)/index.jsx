@@ -50,6 +50,12 @@ export default function Index() {
             Login
           </Text>
         </TouchableOpacity>
+        <View style={styles.footer}>
+          <Text>Don&#39;t have an account?</Text>
+          <TouchableOpacity onPress={() => {/* TODO: Navigate to signup screen */}}>
+            <Text style={{ color: 'blue' }}>Sign Up</Text>
+          </TouchableOpacity>
+        </View>
         </View>
       </View>
     </View>
