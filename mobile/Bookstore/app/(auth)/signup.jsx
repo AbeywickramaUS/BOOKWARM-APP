@@ -1,6 +1,7 @@
-import { View, Text, KeyboardAvoidingView, Platform, StyleSheet, TextInput } from 'react-native'
+import { View, Text, KeyboardAvoidingView, Platform, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 import { Ionicons } from '@expo/vector-icons';
 import React, { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 
 const styles = StyleSheet.create({
   container: {
@@ -11,7 +12,22 @@ const styles = StyleSheet.create({
 });
 
 export default function Signup() {
+  const navigation = useNavigation();
   const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSignup = () => {
+    // TODO: Implement sign up logic here
+    setIsLoading(true);
+    // Simulate a network request
+    setTimeout(() => {
+      setIsLoading(false);
+      alert('Sign up successful!');
+    }, 1500);
+  };
 
   return (
     <KeyboardAvoidingView 
@@ -24,6 +40,7 @@ export default function Signup() {
 
         <View style={styles.formContainer}>
           <View style={styles.inputContainer}>
+            {/** UserName Input */}
             <Text style={styles.label}> UserName</Text>
             <View style={styles.inputContainer}>
               <Ionicons name="person-outline" size={20} color="#666" style={styles.icon} />
@@ -37,8 +54,59 @@ export default function Signup() {
               />
             </View>
           </View>
+          <View style={styles.inputContainer}>
+            {/** Email Input */}
+            <Text style={styles.label}> Email</Text>
+            <View style={styles.inputContainer}>
+              <Ionicons name="mail-outline" size={20} color="#666" style={styles.icon} />
+              <TextInput
+                placeholder="Enter your email"
+                placeholderTextColor="#666"
+                style={styles.input}
+                onChangeText={(text) => setEmail(text)}
+                value={email}
+                keyboardType="email-address"
+                autoCapitalize="none"
+              />
+            </View>
+          </View>
+          <View style={styles.inputContainer}>
+            {/** Password Input */}
+            <Text style={styles.label}> Password</Text>
+            <View style={styles.inputContainer}>
+              <Ionicons name="lock-closed-outline" size={20} color="#666" style={styles.icon} />
+              <TextInput
+                placeholder="Enter your password"
+                placeholderTextColor="#666"
+                style={styles.input}
+                onChangeText={(text) => setPassword(text)}
+                value={password}
+                secureTextEntry={!showPassword}
+                autoCapitalize="none"
+              />
+              <Ionicons
+                name={showPassword ? "eye-off-outline" : "eye-outline"}
+                size={20}
+                color="#666"
+                style={styles.icon}
+                onPress={() => setShowPassword(!showPassword)}
+              />
+            </View>
+          </View>
+          {/** Sign Up Button */}
+          <TouchableOpacity style={styles.button} onPress={handleSignup} disabled={isLoading}>
+            <Text style={styles.buttonText}>
+              {isLoading ? 'Signing Up...' : 'Sign Up'}
+            </Text>
+          </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+              <Text style={styles.footerLink}>Log In</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+              <Text style={styles.footerLink}>Log In</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
     </KeyboardAvoidingView>
   )
 }
