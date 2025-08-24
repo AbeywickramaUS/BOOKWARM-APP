@@ -19,7 +19,7 @@ export default function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const { isLoading, register } = useAuthStore();
+  const { user, token, isLoading, register } = useAuthStore();
 
 
 
@@ -32,6 +32,9 @@ export default function Signup() {
       Alert.alert('Error', result.message);
     }
   };
+
+  console.log(user)
+  console.log(token)
 
   return (
     <KeyboardAvoidingView 
