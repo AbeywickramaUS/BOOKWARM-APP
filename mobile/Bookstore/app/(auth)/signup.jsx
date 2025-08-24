@@ -2,6 +2,7 @@ import { View, Text, KeyboardAvoidingView, Platform, StyleSheet, TextInput, Touc
 import { Ionicons } from '@expo/vector-icons';
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { useAuthStore } from '../path/to/your/authStore'; // Update the path as needed
 
 const styles = StyleSheet.create({
   container: {
@@ -17,17 +18,13 @@ export default function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const {user, isLoading, register} = useAuthStore();
 
-  const handleSignup = () => {
-    // TODO: Implement sign up logic here
-    setIsLoading(true);
-    // Simulate a network request
-    setTimeout(() => {
-      setIsLoading(false);
-      alert('Sign up successful!');
-    }, 1500);
-  };
+
+
+  const router = useRouter();
+
+  const handleSignup = () => {};
 
   return (
     <KeyboardAvoidingView 
