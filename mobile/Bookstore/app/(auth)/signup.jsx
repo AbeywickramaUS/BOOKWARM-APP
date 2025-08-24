@@ -1,8 +1,9 @@
-import { View, Text, KeyboardAvoidingView, Platform, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, KeyboardAvoidingView, Platform, StyleSheet, TextInput, TouchableOpacity, Alert } from 'react-native'
 import { Ionicons } from '@expo/vector-icons';
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { useAuthStore } from '../path/to/your/authStore'; // Update the path as needed
+// Update the path below to the actual location of your authStore file
+import { useAuthStore } from '../store/authStore';
 
 const styles = StyleSheet.create({
   container: {
@@ -18,13 +19,19 @@ export default function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const {user, isLoading, register} = useAuthStore();
+  const { isLoading, register } = useAuthStore();
 
 
 
   const router = useRouter();
 
-  const handleSignup = () => {};
+  const handleSignup = async () => {
+    const result = await register({ username, email, password });
+    if (!result.success) {
+      // Handle registration error (e.g., show an error message)
+      Alert.alert('Error', result.message);
+    }
+  };
 
   return (
     <KeyboardAvoidingView 
