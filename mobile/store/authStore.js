@@ -1,4 +1,5 @@
 import create from 'zustand';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const useAuthStore = create((set) => ({
   user: null,
@@ -22,11 +23,16 @@ export const useAuthStore = create((set) => ({
       if (!response.ok) {
         throw new Error('Registration failed');
       }
-      set({ isLoading: false });
-      // You may want to handle successful registration here
+      await AsyncStorage.setItem("user", JSON.stringify(data.user));
+      await AsyncStorage.setItem("token", data.token);
+
+      set({ user: data.user, token: data.token, isLoading: false });
+
+      return {success: true};
+
     } catch (error) {
       set({ isLoading: false });
-      console.error('Registration failed:', error);
+      return { success: false, message: 'Registration failed:', error };
     }
   },
 }));
