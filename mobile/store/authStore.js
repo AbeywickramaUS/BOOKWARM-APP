@@ -11,7 +11,7 @@ export const useAuthStore = create((set) => ({
   register: async ({ username, email, password }) => { // Fix: destructure the object parameter
     set({ isLoading: true });
     try {
-      const response = await fetch('https://localhost:3000/BOOKWARM-APP.com/api/register', {
+      const response = await fetch('https://BOOKWARM-APP.com.onrender/api/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
