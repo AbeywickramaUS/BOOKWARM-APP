@@ -2,8 +2,8 @@ import { View, Text, KeyboardAvoidingView, Platform, StyleSheet, TextInput, Touc
 import { Ionicons } from '@expo/vector-icons';
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-// Update the path below to the actual location of your authStore file
-import { useAuthStore } from '../store/authStore';
+import { useRouter } from 'expo-router'; // Add this import
+import { useAuthStore } from '../../store/authStore'; // Fix the path
 
 const styles = StyleSheet.create({
   container: {
