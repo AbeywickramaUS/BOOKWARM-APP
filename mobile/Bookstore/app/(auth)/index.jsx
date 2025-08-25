@@ -1,13 +1,21 @@
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image, KeyboardAvoidingView, Platform } from 'react-native';
 import { useState } from 'react';
+// Update the path below to the actual location of useAuthStore, for example:
+import useAuthStore from '../../stores/useAuthStore';
 
 export default function Index() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const {isLoading, login} = useAuthStore();
 
-  const handleLogin = () => {
-    // TODO: Implement login logic here
+  const handleLogin = async () => {
+    const result = await login({ email, password });
+    if (result.success) {
+      // Handle successful login (e.g., navigate to the main app)
+    } else {
+      // Handle login error (e.g., show error message)
+    }
   };
 
   return (
