@@ -23,7 +23,7 @@ export default function RootLayout() {
       router.replace("/(auth)");
     }
     else if (isSignedIn && inAuthScreen) {
-      router.replace("tabs");
+      router.replace("/(tabs)");
     }
   }, [user, token, segments, router]);
 
