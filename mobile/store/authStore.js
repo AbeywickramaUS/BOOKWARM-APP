@@ -8,11 +8,10 @@ export const useAuthStore = create((set) => ({
   setUser: (user) => set({ user }),
   clearUser: () => set({ user: null }),
 
-  register: async (username, email, password) => {
+  register: async ({ username, email, password }) => { // Fix: destructure the object parameter
     set({ isLoading: true });
     try {
-      // Simulate API call
-      const response = await fetch('https://example.com/api/register', {
+      const response = await fetch('https://localhost:3000/BOOKWARM-APP.com/api/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -21,18 +20,18 @@ export const useAuthStore = create((set) => ({
       });
       const data = await response.json();
       if (!response.ok) {
-        throw new Error('Registration failed');
+        throw new Error(data.message || 'Registration failed');
       }
       await AsyncStorage.setItem("user", JSON.stringify(data.user));
       await AsyncStorage.setItem("token", data.token);
 
       set({ user: data.user, token: data.token, isLoading: false });
 
-      return {success: true};
+      return { success: true };
 
     } catch (error) {
       set({ isLoading: false });
-      return { success: false, message: 'Registration failed:', error };
+      return { success: false, message: error.message || 'Registration failed' };
     }
   },
 }));
