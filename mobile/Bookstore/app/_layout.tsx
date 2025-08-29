@@ -1,8 +1,8 @@
 import { Stack, useRouter, useSegments } from "expo-router";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import SafeScreen from "../components/SafeScreen";
+import SafeScreen from "../../component/SafeScreen";
 import { StatusBar } from "expo-status-bar";
-import {useAuthStore} from "../store/authStore";
+import {useAuthStore} from "../../store/authStore";
 import { useEffect } from "react";
 
 export default function RootLayout() {
@@ -23,7 +23,7 @@ export default function RootLayout() {
       router.replace("/(auth)");
     }
     else if (isSignedIn && inAuthScreen) {
-      router.replace("/(tabs)");
+      router.replace("/books");
     }
   }, [user, token, segments, router]);
 
