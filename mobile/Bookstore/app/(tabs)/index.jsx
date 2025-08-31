@@ -1,4 +1,4 @@
-import { View, Text, FlatList } from 'react-native';
+import { View, Text, FlatList, ActivityIndicator } from 'react-native';
 import { useAuthStore } from '../../../store/authStore';
 import styles from '../../assets/styles/home.styles.js';
 import { useEffect, useState, useCallback } from 'react';
@@ -49,8 +49,10 @@ export default function Home() {
       console.error('Error fetching books:', error);
 
     } finally {
-      if (refreshing) setRefreshing(false);
-      else setLoading(false);
+      if (refreshing) {
+        await sleep(800); // Simulate a delay for better UX
+        setRefreshing(false);
+      } else setLoading(false);
     }
   }, [token, books]);
 
@@ -112,6 +114,12 @@ export default function Home() {
 
   console.log('Books:', books);
 
+  const Loader = ({ size = "large" }) => (
+  <View style={styles.loaderContainer}>
+    <ActivityIndicator size={size} color="#0066cc" />
+  </View>
+);
+if (loading) return <Loader size="large" />;
 
   return (
     <View style={styles.container}>
@@ -125,9 +133,6 @@ export default function Home() {
         onRefresh={() => fetchBooks(1, true)}
         contentContainerStyle={styles.listContent}
         showsVerticalScrollIndicator={false}
-
-        //onEndReached={handleLoadMore}
-        //onEndReachedThreshold={0.5}
 
         ListHeaderComponentStyle={
           <View style={styles.listHeader}>
