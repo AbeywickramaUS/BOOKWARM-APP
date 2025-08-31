@@ -1,13 +1,13 @@
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image, KeyboardAvoidingView, Platform } from 'react-native';
 import { useState } from 'react';
 // Update the path below to the actual location of useAuthStore, for example:
-import useAuthStore from '../../stores/useAuthStore';
+import { useAuthStore } from '../../../store/authStore';
 
 export default function Index() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const {isLoading, login} = useAuthStore();
+  const {isLoading, login, isCheckingAuth} = useAuthStore();
 
   const handleLogin = async () => {
     const result = await login({ email, password });
@@ -17,6 +17,10 @@ export default function Index() {
       // Handle login error (e.g., show error message)
     }
   };
+
+  if (isCheckingAuth) {
+    return ( null);
+  }
 
   return (
     <KeyboardAvoidingView 
@@ -59,6 +63,9 @@ export default function Index() {
         <TouchableOpacity style={{ backgroundColor: 'blue', padding: 10, marginTop: 15, borderRadius: 5 }} onPress={handleLogin}>
           <Text style={{ color: 'white', textAlign: 'center' }}>
             Login
+          </Text>
+          <Text style={{ color: 'white', textAlign: 'center' }}>
+            {isLoading ? 'Logging in...' : 'Login'}
           </Text>
         </TouchableOpacity>
         <View style={styles.footer}>
