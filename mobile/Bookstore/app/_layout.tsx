@@ -1,15 +1,29 @@
-import { Stack, useRouter, useSegments } from "expo-router";
+import { SplashScreen, Stack, useRouter, useSegments } from "expo-router";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import SafeScreen from "../../component/SafeScreen";
 import { StatusBar } from "expo-status-bar";
 import {useAuthStore} from "../../store/authStore";
 import { useEffect } from "react";
+import { useFonts } from "expo-font";
+
+SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const router = useRouter();
   const segments = useSegments();
 
   const { user, checkAuth, token } = useAuthStore();
+
+  const [fontsLoaded] = useFonts({
+    'Roboto': require('../../assets/fonts/Roboto.ttf'),
+    'Roboto-Bold': require('../../assets/fonts/Roboto-Bold.ttf'),
+  });
+
+  useEffect(() => {
+    if (fontsLoaded) {
+      SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
 
   useEffect(() => {
     checkAuth();
@@ -26,6 +40,7 @@ export default function RootLayout() {
       router.replace("/books");
     }
   }, [user, token, segments, router]);
+
 
   return (
     <SafeAreaProvider>
