@@ -8,6 +8,7 @@ export const useAuthStore = create((set) => ({
   isLoading: false,
   setUser: (user) => set({ user }),
   clearUser: () => set({ user: null }),
+  isChecking: true,
 
   register: async ({ username, email, password }) => { // Fix: destructure the object parameter
     set({ isLoading: true });
@@ -73,6 +74,9 @@ export const useAuthStore = create((set) => ({
       }
     } catch (error) {
       console.error("Error checking authentication:", error);
+    }
+    finally {
+      set({ isChecking: false });
     }
   },
 
